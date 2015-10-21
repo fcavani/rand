@@ -235,6 +235,22 @@ type LenAtSetter interface {
 	Set(i int, val interface{})
 }
 
+// StringPermutation is an adaptor for permutate a string slice.
+type StringPermutation []string
+
+func (s StringPermutation) Len() int {
+	return len(s)
+}
+
+func (s StringPermutation) At(i int) interface{} {
+	return s[i]
+}
+
+func (s StringPermutation) Set(i int, val interface{}) {
+	str := val.(string)
+	s[i] = str
+}
+
 func permutation(length int, dev string) ([]int64, error) {
 	a := make([]int64, length)
 	m := make(map[int64]bool, length)

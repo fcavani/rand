@@ -231,3 +231,25 @@ func TestRandomPermutation(t *testing.T) {
 		}
 	}
 }
+
+func TestStringPermutation(t *testing.T) {
+	in := StringPermutation(LowerCase)
+	for i := 0; i < 1000000; i++ {
+		out := make(StringPermutation, len(in))
+		err := RandomPermutation(in, out, "go-crypto")
+		if err != nil {
+			t.Fatal("RandomPermutation failed:", e.Trace(e.Forward(err)))
+		}
+		for _, valIn := range in {
+			count := 0
+			for _, valOut := range out {
+				if valOut == valIn {
+					count++
+				}
+				if count > 1 {
+					t.Fatal("Duplicado!!!")
+				}
+			}
+		}
+	}
+}
