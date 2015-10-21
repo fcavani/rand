@@ -230,8 +230,11 @@ func Uuid() (string, error) {
 }
 
 type LenAtSetter interface {
+	// Len return the length of slice.
 	Len() int
+	// At return the element in i index.
 	At(i int) interface{}
+	// Set sets the i element with val.
 	Set(i int, val interface{})
 }
 
@@ -299,6 +302,7 @@ func RandomPermutation(in, out LenAtSetter, dev string) error {
 	return nil
 }
 
+// FileName return a filename with letters number of letter, prefix and ext extension.
 func FileName(prefix, ext string, letters int) (string, error) {
 	name, err := Chars(uint64(letters), NumberLetters, "go-crypto")
 	if err != nil {
