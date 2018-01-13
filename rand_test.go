@@ -175,6 +175,13 @@ func TestUuid(t *testing.T) {
 	}
 }
 
+func TestUuidByte(t *testing.T) {
+	_, err := UuidByte()
+	if err != nil {
+		t.Fatal("Uuid go failed:", err)
+	}
+}
+
 var testsPerm = 1000
 
 func TestPermutations(t *testing.T) {

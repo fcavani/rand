@@ -206,7 +206,7 @@ func String(chars int, dev string) (string, error) {
 	return string(b), nil
 }
 
-// Uuid generate the "Universally unique identifier"
+// Uuid generate the "Universally unique identifier" string formated.
 func Uuid() (string, error) {
 	b, err := Bytes(17, "go-crypto")
 	if err != nil {
@@ -227,6 +227,29 @@ func Uuid() (string, error) {
 	}
 	b[8] = (b[8] & 0x0f) | b8
 	return fmt.Sprintf("%x-%x-%x-%x-%x", b[0:4], b[4:6], b[6:8], b[8:10], b[10:16]), nil
+}
+
+// UuidByte generate the "Universally unique identifier" in 16 bytes format.
+func UuidByte() ([]byte, error) {
+	b, err := Bytes(17, "go-crypto")
+	if err != nil {
+		return nil, e.Forward(err)
+	}
+	b[6] = (b[6] & 0x0f) | 0x40
+	// 0x80 0x90 0xA0 0xB0
+	var b8 byte
+	switch {
+	case b[16] < 0x40:
+		b8 = 0x80
+	case b[16] >= 0x40 && b[16] < 0x80:
+		b8 = 0x90
+	case b[16] >= 0x80 && b[16] < 0xC0:
+		b8 = 0xA0
+	case b[16] >= 0xC0 && b[16] < 0xFF:
+		b8 = 0xB0
+	}
+	b[8] = (b[8] & 0x0f) | b8
+	return b, nil
 }
 
 type LenAtSetter interface {
