@@ -249,7 +249,7 @@ func UuidByte() ([]byte, error) {
 		b8 = 0xB0
 	}
 	b[8] = (b[8] & 0x0f) | b8
-	return b, nil
+	return b[:16], nil //???? 16?????
 }
 
 type LenAtSetter interface {
